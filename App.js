@@ -4,7 +4,7 @@ import './App.css';
 
 const ever = new ProviderRpcClient();
 
-const DePoolAbi =
+const ReceiveAbi =
     {
         "ABI version": 2,
         "version": "2.2",
@@ -73,9 +73,9 @@ export default class App extends Component {
         const selectedAddress = accountInteraction.address;
         const dePoolAddress = new Address('0:db48dac8fdc2c25be83d987280560cd34b35dc9334ab8a2bafef69e1340b6697');
 
-        const dePool = new ever.Contract(DePoolAbi, dePoolAddress);
+        const receivePool = new ever.Contract(ReceiveAbi, dePoolAddress);
 
-        const transaction = await dePool
+        const transaction = await receivePool
             .methods.receiveTokens({}).send({
                 from: selectedAddress,
                 amount: '100000000',
@@ -84,7 +84,7 @@ export default class App extends Component {
         console.log(transaction);
 
         try {
-            const output = await dePool
+            const output = await receivePool
             console.log(output);
         } catch (e) {
             if (e instanceof TvmException) {
